@@ -8,8 +8,10 @@ from flask_mysqldb import MySQL
 from markupsafe import escape
 from functools import wraps
 from db import db
+from blocklist import BLOCKLIST
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
+import secrets
 
 from resource.user import blp as UserBlueprint
 
@@ -44,8 +46,26 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app) # Initialises flask alchemy exteinsion - allow it to connect flask app to sqlAlchemy
 
 # secret for jwt
-app.config['SECRET_KEY'] = '004f2af45d3a4e161a7dd2d17fdae47f'
+# app.config['SECRET_KEY'] = '004f2af45d3a4e161a7dd2d17fdae47f'
+app.config["JWT_SECRET_KEY"] = str(secrets.SystemRandom().getrandbits(128))
 jwt = JWTManager(app)
+
+
+# Checks if token is in blocklist, returns error if token is blocked
+@jwt.token_in_blocklist_loader
+def check_if_blocklist(jwt_header, jwt_payload):
+    return jwt_payload["jti"] in BLOCKLIST
+
+# Error message for  blocked tokens
+@jwt.revoked_token_loader
+def revoked_token_callback(jwt_header, jwt_payload):
+    return (
+        jsonify(
+            {"description": "The token has been revoked.", "error": "token_revoked"}
+        ), 401
+    )
+
+
 
 
 # Error Messages for JWT Token

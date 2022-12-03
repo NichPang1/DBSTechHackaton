@@ -6,6 +6,7 @@ from flask_jwt_extended import create_access_token, create_refresh_token, get_jw
 
 from db import db
 from model.user import UserModel
+from blocklist import BLOCKLIST
 
 from schemas import UserSchema
 
@@ -61,3 +62,12 @@ class UserLogin(MethodView):
             return {"access_token": access_token, "refresh_token": refresh_token}
 
         abort(401, message="Invalid credentials")
+
+# Logout user - adds token to blocklist
+@blp.route("/logout")
+class UserLogout(MethodView):
+    @jwt_required()
+    def post(self):
+        jti = get_jwt()["jti"]
+        BLOCKLIST.add(jti)
+        return {"message": "Successfully logged out."}

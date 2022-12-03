@@ -43,3 +43,19 @@ class UserRegister(MethodView):
         db.session.commit()
 
         return {"message": "User created successfully."}, 201
+
+# Login function
+@blp.route("/login")
+class UserLogin(MethodView):
+    @blp.arguments(UserSchema)
+    # User login
+    def post(self, user_data):
+        user = UserModel.query.filter(UserModel.Username == user_data["Username"]).first()
+        
+        # Verifies user exist and password is valid
+        if user and pbkdf2_sha256.verify(user_data["Password"], user.Password):
+            access_token = create_access_token(identity=user.UserID, fresh=True)
+            refresh_token = create_refresh_token(identity=user.UserID)
+            return {"access_token": access_token, "refresh_token": refresh_token}
+
+        abort(401, message="Invalid credentials")

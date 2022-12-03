@@ -9,6 +9,7 @@ from markupsafe import escape
 from functools import wraps
 from db import db
 from flask_smorest import Api
+from flask_jwt_extended import JWTManager
 
 from resource.user import blp as UserBlueprint
 
@@ -32,6 +33,8 @@ app.config['MYSQL_PASSWORD'] = os.getenv("DB_PASSWORD")
 app.config['MYSQL_DB'] = os.getenv("DB_NAME")
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor' # return items as array of objects
 
+
+
 # MySQL Database Connection
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:password@localhost/SEED_TEAM_9'
 
@@ -42,6 +45,7 @@ db.init_app(app) # Initialises flask alchemy exteinsion - allow it to connect fl
 
 # secret for jwt
 app.config['SECRET_KEY'] = '004f2af45d3a4e161a7dd2d17fdae47f'
+jwt = JWTManager(app)
 
 # set cors
 CORS(app)

@@ -33,7 +33,7 @@ mysql = MySQL(app)
 def create_user():
     return 'Hello World!'
 
-@app.route("/insert")
+@app.route("/insert", methods=["POST"])
 def insert_transaction():
     body = request.get_json()
 

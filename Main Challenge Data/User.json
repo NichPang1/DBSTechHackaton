@@ -1,0 +1,52 @@
+[
+    {
+        "UserID": 1,
+        "Username": "ExecutiveDBS",
+        "Password": "DBSBestBank2022",
+        "Firstname": "Tom",
+        "Lastname": "Lim",
+        "Email": "TomLim@easymail.com",
+        "Address": "Block 123 Serangoon Garden #10-129",
+        "OptIntoPhyStatements": 0
+    },
+    {
+        "UserID": 2,
+        "Username": "SeederDBS",
+        "Password": "iWant2JoinDBS",
+        "Firstname": "Mary",
+        "Lastname": "Tan",
+        "Email": "MaryTan@simplemail.com",
+        "Address": "Block 234 Changi Business Park #50-123",
+        "OptIntoPhyStatements": 1
+    },
+    {
+        "UserID": 3,
+        "Username": "AcerDBS",
+        "Password": "Top5Seeder",
+        "Firstname": "Gary",
+        "Lastname": "Ong",
+        "Email": "GaryOng@easymail.com",
+        "Address": "Block 345 Jurong Business Park #25-214",
+        "OptIntoPhyStatements": 0
+    },
+    {
+        "UserID": 4,
+        "Username": "AssociateDBS",
+        "Password": "Whatis2Years",
+        "Firstname": "Harry",
+        "Lastname": "Goh",
+        "Email": "HarryGoh@bestbank.com",
+        "Address": "Block 456 One North Fusionopolis #34-743",
+        "OptIntoPhyStatements": 0
+    },
+    {
+        "UserID": 5,
+        "Username": "PresidentDBS",
+        "Password": "Multiplier3.5%",
+        "Firstname": "Cheryl",
+        "Lastname": "Chia",
+        "Email": "CherylChia@bestbank.com",
+        "Address": "Block 567 Marina Bay Sands #63-743",
+        "OptIntoPhyStatements": 1
+    }
+]

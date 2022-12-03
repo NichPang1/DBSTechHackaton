@@ -12,6 +12,7 @@ from blocklist import BLOCKLIST
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 import secrets
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, jwt_required, get_jwt
 
 from resource.user import blp as UserBlueprint
 
@@ -179,6 +180,7 @@ def insert_transaction():
 
 # feature 5
 @app.route("/deleteTransaction", methods = ['DELETE'])
+@jwt_required(fresh=True)
 def delete_transaction():
     body = request.get_json()
     cursor = mysql.connection.cursor()

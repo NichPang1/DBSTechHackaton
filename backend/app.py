@@ -38,10 +38,10 @@ def create_user():
 @app.route("/userDetails", methods=['PUT'])
 def update_user():
     try:
-        body = request.get_json()
+        params = request.args
         cursor = mysql.connection.cursor()
         cursor.execute("UPDATE user SET `email` = '{}', `address` = '{}' WHERE `userid` = '{}'".format(
-            body['email'], body['address'], body['userId']))
+            params.get('email'), params.get('address'), params.get('userId')))
         mysql.connection.commit()
         return 'User updated successfully'
     except Exception:

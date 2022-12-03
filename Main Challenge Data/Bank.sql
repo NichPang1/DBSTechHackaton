@@ -72,32 +72,32 @@ INSERT INTO `ScheduledTransactions` VALUES (1,621156213,339657462,'2022-11-08T04
 UNLOCK TABLES;
 
 --
--- Table structure for table `User`
+-- Table structure for table `Users`
 --
 
-DROP TABLE IF EXISTS `User`;
+DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `User` (
+CREATE TABLE `Users` (
   `UserID` int NOT NULL,
-  `Username` varchar(20) DEFAULT NULL,
+  `Username` varchar(256) DEFAULT NULL,
   `Password` varchar(20) DEFAULT NULL,
   `Firstname` varchar(255) DEFAULT NULL,
   `Lastname` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Address` varchar(255) DEFAULT NULL,
-  `OptIntoPhyStatements` bit(1) DEFAULT NULL,
+  `OptIntoPhyStatements` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `User`
+-- Dumping data for table `Users`
 --
 
-LOCK TABLES `User` WRITE;
-/*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'ExecutiveDBS','DBSBestBank2022','Tom','Lim','TomLim@easymail.com','Block 123 Serangoon Garden #10-129',_binary '\0'),(2,'SeederDBS','iWant2JoinDBS','Mary','Tan','MaryTan@simplemail.com','Block 234 Changi Business Park #50-123',_binary ''),(3,'AcerDBS','Top5Seeder','Gary','Ong','GaryOng@easymail.com','Block 345 Jurong Business Park #25-214',_binary '\0'),(4,'AssociateDBS','Whatis2Years','Harry','Goh','HarryGoh@bestbank.com','Block 456 One North Fusionopolis #34-743',_binary '\0'),(5,'PresidentDBS','Multiplier3.5%','Cheryl','Chia','CherylChia@bestbank.com','Block 567 Marina Bay Sands #63-743',_binary '');
+LOCK TABLES `Users` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES (1,'ExecutiveDBS','DBSBestBank2022','Tom','Lim','TomLim@easymail.com','Block 123 Serangoon Garden #10-129',_binary '0'),(2,'SeederDBS','iWant2JoinDBS','Mary','Tan','MaryTan@simplemail.com','Block 234 Changi Business Park #50-123',_binary '1'),(3,'AcerDBS','Top5Seeder','Gary','Ong','GaryOng@easymail.com','Block 345 Jurong Business Park #25-214',_binary '0'),(4,'AssociateDBS','Whatis2Years','Harry','Goh','HarryGoh@bestbank.com','Block 456 One North Fusionopolis #34-743',_binary '0'),(5,'PresidentDBS','Multiplier3.5%','Cheryl','Chia','CherylChia@bestbank.com','Block 567 Marina Bay Sands #63-743',_binary '1');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

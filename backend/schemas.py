@@ -8,5 +8,5 @@ class UserSchema(Schema):
     LastName = fields.Str(required=False)
     Email = fields.Str(required=False)
     Address = fields.Str(required=False)
-    OpIntoPhyStatements = fields.Str(required=False)
+    OptIntoPhyStatements = fields.Str(required=False)
 

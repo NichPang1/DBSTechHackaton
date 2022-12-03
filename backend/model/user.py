@@ -10,4 +10,4 @@ class UserModel(db.Model):
     LastName = db.Column(db.String(255), nullable=True)
     Email = db.Column(db.String(255), nullable=True)
     Address = db.Column(db.String(255), nullable=True)
-    OpIntoPhyStatements = db.Column(db.String(1), nullable=True)
+    OptIntoPhyStatements = db.Column(db.String(1), nullable=True)

@@ -39,7 +39,7 @@ class UserRegister(MethodView):
             LastName = user_data["LastName"],
             Email = user_data["Email"],
             Address = user_data["Address"],
-            OpIntoPhyStatements = user_data["OpIntoPhyStatements"]
+            OptIntoPhyStatements = user_data["OptIntoPhyStatements"]
         )
 
         db.session.add(user)

@@ -32,3 +32,17 @@ mysql = MySQL(app)
 @app.route("/hello")
 def create_user():
     return 'Hello World!'
+
+
+# feature 6
+@app.route("/userDetails", methods=['PUT'])
+def update_user():
+    try:
+        body = request.get_json()
+        cursor = mysql.connection.cursor()
+        cursor.execute("UPDATE user SET `email` = '{}', `address` = '{}' WHERE `userid` = '{}'".format(
+            body['email'], body['address'], body['userId']))
+        mysql.connection.commit()
+        return 'User updated successfully'
+    except Exception:
+        return 'Failed to update user'

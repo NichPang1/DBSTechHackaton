@@ -44,15 +44,13 @@ def insert_transaction():
 
     #     if result:
     #         return "Transaction already exists"
-        
+    #print(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
 
     insertion_cursor = mysql.connection.cursor()
     
-    sqlstatement = 'INSERT INTO ScheduledTransactions VALUES (%s, %s, %s, %s, %s, %s)'
-    val = (body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
-    result = insertion_cursor.execute(sqlstatement, val)
-    # except Exception as e:
-    #     return e
-    
-    return result
+    #sqlstatement = 'INSERT INTO ScheduledTransactions VALUES ({}, {}, {}, "{}", {}, "{}")'.format(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
+    # result = insertion_cursor.execute(sqlstatement)
+    insertion_cursor.execute('INSERT INTO ScheduledTransactions VALUES ({}, {}, {}, "{}", {}, "{}")'.format(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment']))
+    mysql.connection.commit()
+    return "1"
     

@@ -51,8 +51,8 @@ def insert_transaction():
         sqlstatement = 'INSERT INTO ScheduledTransactions VALUES (%s, %s, %s, %s, %s, %s)'
         val = (body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
         insertion_cursor.execute(sqlstatement, val)
-    except:
-        return "An Exception has occured"
+    except Exception as e:
+        return e
     
     return '201'
     

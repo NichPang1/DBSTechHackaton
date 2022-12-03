@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-const Orders = () => {
+const Transactions = () => {
   const selectionsettings = { persistSelection: true };
   const toolbarOptions = ['Delete'];
   const editing = { allowDeleting: true, allowEditing: true };
@@ -26,7 +26,7 @@ const Orders = () => {
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Scheduled Transactions" />
+      <Header category="Page" title="Customers" />
       <GridComponent
         dataSource={transactions}
         enableHover={false}
@@ -47,4 +47,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Transactions;

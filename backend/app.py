@@ -34,10 +34,10 @@ def create_user():
     return 'Hello World!'
 
 # feature 3
-@app.route("/transactions")
-def get_all_users():
+@app.route("/transactions/<int:id>")
+def get_all_users(id):
     cursor = mysql.connection.cursor()
-    resultValue = cursor.execute('select * from ScheduledTransactions')
+    resultValue = cursor.execute('select * from scheduledtransactions inner join (SELECT distinct(bankaccount.AccountID) FROM user INNER JOIN bankaccount ON user.userid = bankaccount.userid where user.userid = {}) as a on scheduledtransactions.AccountID = a.accountid'.format(id))
     if resultValue > 0:
         rows = cursor.fetchall()
         return jsonify(rows)

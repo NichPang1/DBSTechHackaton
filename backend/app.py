@@ -44,7 +44,7 @@ def get_all_users(id):
         rows = cursor.fetchall()
         return jsonify(rows)
     else:
-        return make_response('There are no transactions found.',  403)
+        return make_response('There are no user found.',  402)
 
 # feature 3
 @app.route("/transactions/<int:id>")

@@ -54,10 +54,6 @@ def update_user():
         cursor.execute("UPDATE user SET `email` = '{}', `address` = '{}' WHERE `userid` = '{}'".format(
             params.get('email'), params.get('address'), params.get('userId')))
         mysql.connection.commit()
-        # resultValue = cursor.execute('select * from user')
-        # if resultValue > 0:
-        #     userDetails = cursor.fetchall()
-        #     return jsonify(userDetails)
         return make_response('User updated successfully', 200)
     except Exception:
         return 'Failed to update user'

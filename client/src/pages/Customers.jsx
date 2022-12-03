@@ -4,6 +4,9 @@ import { GridComponent, ColumnsDirective, ColumnDirective, Page, Selection, Inje
 import { scheduledTransactionsGrid } from '../data/dummyData';
 import { Header } from '../components';
 import { useEffect, useState } from "react";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 
 import axios from "axios";
 
@@ -16,6 +19,7 @@ const Customers = () => {
   const baseURL = "http://127.0.0.1:5000/";
   const [transactions, setTransactions] = useState();
 
+
   useEffect(() => {
     axios.get(baseURL + "transactions").then((response) => {
       setTransactions(response.data);
@@ -25,25 +29,29 @@ const Customers = () => {
   if (!transactions) return null;
 
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Customers" />
-      <GridComponent
-        dataSource={transactions}
-        enableHover={false}
-        allowPaging
-        pageSettings={{ pageCount: 5 }}
-        selectionSettings={selectionsettings}
-        toolbar={toolbarOptions}
-        editSettings={editing}
-        allowSorting
-      >
-        <ColumnsDirective>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          {scheduledTransactionsGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-        </ColumnsDirective>
-        <Inject services={[Page, Selection, Toolbar, Edit, Sort, Filter]} />
-      </GridComponent>
-    </div>
+<Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          required
+          id="outlined"
+          label="Recipient Bank Account ID"
+          defaultValue=""
+        />
+        <TextField
+          required
+          id="outlined"
+          label="Transaction Amount"
+          defaultValue=""
+        />
+      </div>
+    </Box>
   );
 };
 

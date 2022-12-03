@@ -32,3 +32,15 @@ mysql = MySQL(app)
 @app.route("/hello")
 def create_user():
     return 'Hello World!'
+
+@app.route("/insert")
+def insert_transaction():
+    body = request.get_json()
+
+    cursor = mysql.connection.cursor()
+    
+    sqlstatement = 'INSERT INTO ScheduledTransactions VALUES (%s, %s, %s, %s, %s, %s)'
+    val = (body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
+    cursor.execute(sqlstatement, val)
+    return '201'
+    

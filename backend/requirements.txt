@@ -1,0 +1,12 @@
+flask==2.2
+flask-smorest
+python-dotenv
+sqlalchemy
+flask-sqlalchemy
+pymysql
+cryptography
+flask-jwt-extended
+passlib
+mysql-connector
+mysql-connector-python
+# mysql-connector-python-rf==2.2.2

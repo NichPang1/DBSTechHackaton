@@ -32,3 +32,24 @@ mysql = MySQL(app)
 @app.route("/hello")
 def create_user():
     return 'Hello World!'
+
+# feature 2
+@app.route("/userInfo/<int:id>")
+def get_all_users(id):
+    cursor = mysql.connection.cursor()
+    resultValue = cursor.execute('select * from bankaccount where userid = {}'.format(id))
+    if resultValue > 0:
+        rows = cursor.fetchall()
+        return jsonify(rows)
+    else:
+        return make_response('There are no transactions found.',  403)
+
+# @app.route("/transactions")
+# def get_all_users():
+#     cursor = mysql.connection.cursor()
+#     resultValue = cursor.execute('select * from ScheduledTransactions')
+#     if resultValue > 0:
+#         rows = cursor.fetchall()
+#         return jsonify(rows)
+#     else:
+#         return make_response('There are no transactions found.',  403)

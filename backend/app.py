@@ -37,10 +37,18 @@ def create_user():
 def insert_transaction():
     body = request.get_json()
 
-    cursor = mysql.connection.cursor()
+    check_cursor = mysql.connection.cursor()
+    check_statement = 'SELECT * FROM ScheduledTransactions WHERE TransactionID = %s AND AccountID = %s'
+    check_val = (body['TransactionID'], body['AccountID'])
+    result = check_cursor.execute(check_statement, check_val)
+    if result:
+        return "Transaction already exists"
+        
+
+    insertion_cursor = mysql.connection.cursor()
     
     sqlstatement = 'INSERT INTO ScheduledTransactions VALUES (%s, %s, %s, %s, %s, %s)'
     val = (body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
-    cursor.execute(sqlstatement, val)
+    insertion_cursor.execute(sqlstatement, val)
     return '201'
     

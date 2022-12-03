@@ -1,16 +1,74 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { Navbar, Footer, Sidebar, ThemeSettings } from './components';
-import { Transactions, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
+import { Transactions, Login, Orders, Calendar, Employees, Stacked, Pyramid, Customers, Kanban, Line, Area, Bar, Pie, Financial, ColorPicker, ColorMapping, Editor } from './pages';
 import './App.css';
+import useToken from './components/useToken';
+// import Login from './Login';
+
 
 import { useStateContext } from './contexts/ContextProvider';
 
+// function setToken(userToken) {
+//   sessionStorage.setItem('token', JSON.stringify(userToken));
+// }
+
+// function getToken() {
+//   const tokenString = sessionStorage.getItem('token');
+//   const userToken = JSON.parse(tokenString);
+//   return userToken?.token
+// }
+
 const App = () => {
   const { setCurrentColor, setCurrentMode, currentMode, activeMenu, currentColor, themeSettings, setThemeSettings } = useStateContext();
+  const { token, setToken } = useToken();
+
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+
+  async function loginUser(credentials) {
+    return fetch('http://localhost:5000/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    })
+      .then(data => data.json())
+   }
+
+  const handleSubmit = async e => {
+      e.preventDefault();
+      const token = await loginUser({
+        username,
+        password
+      });
+      setToken(token);
+  }
+
+  if(!token) {
+    return (
+        <div className="login-wrapper">
+        <h1>Please Log In</h1>
+        <form>
+          <label>
+            <p>Username</p>
+            <input type="text" />
+          </label>
+          <label>
+            <p>Password</p>
+            <input type="password" />
+          </label>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    )
+  }
 
   useEffect(() => {
     const currentThemeColor = localStorage.getItem('colorMode');

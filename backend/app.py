@@ -36,21 +36,18 @@ def create_user():
 @app.route("/insert", methods=["POST"])
 def insert_transaction():
     body = request.get_json()
-    # try:
-    #     check_cursor = mysql.connection.cursor()
-    #     check_statement = 'SELECT * FROM ScheduledTransactions WHERE TransactionID = %s AND AccountID = %s'
-    #     check_val = (body['TransactionID'], body['AccountID'])
-    #     result = check_cursor.execute(check_statement, check_val)
+    try:
+        check_cursor = mysql.connection.cursor()
+        check_statement = 'SELECT * FROM ScheduledTransactions WHERE TransactionID = %s AND AccountID = %s'
+        check_val = (body['TransactionID'], body['AccountID'])
+        result = check_cursor.execute(check_statement, check_val)
 
-    #     if result:
-    #         return "Transaction already exists"
-    #print(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
-
-    insertion_cursor = mysql.connection.cursor()
-    
-    #sqlstatement = 'INSERT INTO ScheduledTransactions VALUES ({}, {}, {}, "{}", {}, "{}")'.format(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment'])
-    # result = insertion_cursor.execute(sqlstatement)
-    insertion_cursor.execute('INSERT INTO ScheduledTransactions VALUES ({}, {}, {}, "{}", {}, "{}")'.format(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment']))
-    mysql.connection.commit()
+        if result:
+            return "Transaction already exists"
+        insertion_cursor = mysql.connection.cursor()
+        insertion_cursor.execute('INSERT INTO ScheduledTransactions VALUES ({}, {}, {}, "{}", {}, "{}")'.format(body['TransactionID'], body['AccountID'], body['ReceivingAccountID'], body['Date'], body['TransactionAmount'], body['Comment']))
+        mysql.connection.commit()
+    except Exception as e:
+        return e
     return "1"
     

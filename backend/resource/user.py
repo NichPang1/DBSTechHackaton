@@ -12,9 +12,11 @@ from schemas import UserSchema
 # Create blueprint
 blp = Blueprint("users", __name__, description="Operations in users")
 
-# Get all users function
+
 @blp.route("/user")
 class UserList(MethodView):
+    # Get all users function
+    @jwt_required(fresh=True)
     @blp.response(200, UserSchema(many=True)) # Return response, to user (client)
     # Get all users
     def get(self):

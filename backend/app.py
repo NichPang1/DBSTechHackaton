@@ -47,6 +47,33 @@ db.init_app(app) # Initialises flask alchemy exteinsion - allow it to connect fl
 app.config['SECRET_KEY'] = '004f2af45d3a4e161a7dd2d17fdae47f'
 jwt = JWTManager(app)
 
+
+# Error Messages for JWT Token
+
+# 1. Expired Token
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header, jwt_payload):
+    return (
+        jsonify({"message": "The token has expired.", "error": "token_expired"}, 401)
+    )
+
+#  2. Invalid Token
+@jwt.invalid_token_loader
+def invalid_token_callback(error):
+    return (
+        jsonify(
+            {"message": "Signature verification failed.", "error": "invalid_token"}, 401)
+    )
+
+# 3. Unauthroized Token
+@jwt.unauthorized_loader
+def missing_token_callback(error):
+    return (
+        jsonify(
+            {"description": "Request does not contain access token.", "error": "authorization_required"}
+        )
+    )
+
 # set cors
 CORS(app)
 
